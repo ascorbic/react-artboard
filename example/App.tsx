@@ -45,7 +45,7 @@ export function App() {
             value={strokeWidth}
             onInput={(evt) => setStrokeWidth(parseInt(evt.currentTarget.value))}
           />
-          {setStrokeWidth}
+          <span>{strokeWidth}</span>
         </label>
         <button onClick={() => artboardRef?.download()}>Download</button>
         <button onClick={() => artboardRef?.clear()}>Clear</button>

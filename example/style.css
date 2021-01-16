@@ -22,3 +22,7 @@ h1 {
 a:visited {
   color: inherit;
 }
+
+label span {
+  width: 40px;
+}
