@@ -1,8 +1,8 @@
 import React, {
   ForwardedRef,
   forwardRef,
-  HTMLAttributes,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -10,6 +10,7 @@ import React, {
 
 import {
   Brush,
+  circleCursor,
   drawStroke,
   getMousePoint,
   getNewAngle,
@@ -30,7 +31,7 @@ export interface ArtboardHandles {
 }
 
 export const Artboard = forwardRef(function Artboard(
-  { color = "#000000", strokeWidth = 25, ...props }: Props,
+  { color = "#000000", strokeWidth = 25, style, ...props }: Props,
   ref: ForwardedRef<ArtboardHandles>
 ) {
   const [brush, setBrush] = useState<Brush>([]);
@@ -190,6 +191,7 @@ export const Artboard = forwardRef(function Artboard(
 
   return (
     <canvas
+      style={{ ...style, cursor: circleCursor(strokeWidth) }}
       onTouchStart={touchStart}
       onMouseDown={mouseDown}
       onMouseEnter={mouseEnter}
