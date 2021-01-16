@@ -1,13 +1,16 @@
 {
   "name": "react-artboard",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "author": "Matt Kane <m@mk.gg>",
   "license": "MIT",
   "scripts": {
-    "clean": "rm dist/bundle.js",
-    "start": "parcel src/index.html --host 0.0.0.0",
-    "build-prod": "parcel build src/index.html"
+    "clean": "rm dist/*",
+    "start": "parcel example/index.html --host 0.0.0.0 --out-dir public",
+    "build-example": "parcel build example/index.html --out-dir public",
+    "build-library": "parcel build src/index.ts",
+    "typegen": "tsc --emitDeclarationOnly --declaration"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

@@ -8,14 +8,14 @@ import React, {
 } from "react";
 
 import {
-  Brush,
   getMousePoint,
   getTouchPoint,
   mouseButtonIsDown,
   Point,
-} from "../helpers";
+} from "../utils/pointUtils";
 
-export interface Props extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
+export interface ArtboardProps
+  extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   tool: ToolHandlers;
 }
 
@@ -33,7 +33,7 @@ export interface ToolHandlers {
 }
 
 export const Artboard = forwardRef(function Artboard(
-  { tool, style, ...props }: Props,
+  { tool, style, ...props }: ArtboardProps,
   ref: ForwardedRef<ArtboardRef>
 ) {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>();

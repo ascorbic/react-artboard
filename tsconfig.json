@@ -1,6 +1,10 @@
 {
     "compilerOptions": {
         "outDir": "./dist/",
+        "lib": [
+            "es2015",
+            "dom"
+        ],
         "sourceMap": true,
         "strict": true,
         "noImplicitReturns": true,
@@ -10,9 +14,10 @@
         "target": "es5",
         "allowJs": true,
         "jsx": "react",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "declaration": true
     },
     "include": [
-        "./src/**/*"
+        "./src/index.ts",
     ]
 }
