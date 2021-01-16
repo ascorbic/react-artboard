@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useBrush, Artboard, ArtboardRef } from "../src/";
-
+import "./style.css";
 export function App() {
   const [color, setColor] = useState("#993366");
   const [strokeWidth, setStrokeWidth] = useState(40);
