@@ -7,7 +7,7 @@ are implemented as custom hooks, so you can add your own brushes and other tools
 
 [Try the demo](https://react-artboard.netlify.app/)
 
-![artboard](./artboard.png)
+![artboard](https://raw.githubusercontent.com/ascorbic/react-artboard/main/artboard.png)
 
 ## Installation
 
