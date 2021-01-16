@@ -93,11 +93,13 @@ const drawStroke = (
 export interface UseBrushProps {
   color?: string;
   strokeWidth?: number;
+  varyBrightness?: number;
 }
 
 export function useBrush({
   color = "#000000",
   strokeWidth = 25,
+  varyBrightness = 5,
 }: UseBrushProps): ToolHandlers {
   const [brush, setBrush] = useState<Brush>([]);
   const currentAngle = useRef<number>();
@@ -106,7 +108,7 @@ export function useBrush({
   const startStroke = useCallback(
     (point: Point) => {
       currentAngle.current = undefined;
-      setBrush(makeBrush(strokeWidth, color, 5));
+      setBrush(makeBrush(strokeWidth, color, varyBrightness));
       lastPoint.current = point;
     },
     [setBrush, strokeWidth, color]
