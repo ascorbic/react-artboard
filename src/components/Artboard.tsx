@@ -1,11 +1,13 @@
-import {
+import React, {
+  ForwardedRef,
+  forwardRef,
   HTMLAttributes,
   useCallback,
-  useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from "react";
-import React from "react";
+
 import {
   Brush,
   drawStroke,
@@ -22,14 +24,18 @@ export interface Props extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   strokeWidth?: number;
 }
 
-export function Artboard({
-  color = "#000000",
-  strokeWidth = 25,
-  ...props
-}: Props) {
+export interface ArtboardHandles {
+  download: (filename?: string, type?: string) => void;
+  clear: () => void;
+}
+
+export const Artboard = forwardRef(function Artboard(
+  { color = "#000000", strokeWidth = 25, ...props }: Props,
+  ref: ForwardedRef<ArtboardHandles>
+) {
   const [brush, setBrush] = useState<Brush>([]);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>();
-
+  const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [drawing, setDrawing] = useState(false);
 
   const currentAngle = useRef<number>();
@@ -116,13 +122,27 @@ export function Artboard({
     [drawing, startStroke]
   );
 
-  const gotRef = useCallback((canvas: HTMLCanvasElement) => {
-    if (!canvas) {
+  const clear = useCallback(() => {
+    if (!context || !canvas) {
       return;
     }
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    setContext(canvas.getContext("2d"));
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+  }, [context, canvas]);
+
+  const gotRef = useCallback((canvasRef: HTMLCanvasElement) => {
+    if (!canvasRef) {
+      return;
+    }
+    canvasRef.width = canvasRef.offsetWidth;
+    canvasRef.height = canvasRef.offsetHeight;
+    const ctx = canvasRef.getContext("2d");
+    setCanvas(canvasRef);
+    setContext(ctx);
+    if (ctx) {
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvasRef.width, canvasRef.height);
+    }
   }, []);
 
   const mouseEnter = useCallback(
@@ -150,6 +170,24 @@ export function Artboard({
     },
     [drawing]
   );
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      download: (filename: string = "image.png", type?: string) => {
+        if (!canvas) {
+          return;
+        }
+        const a = document.createElement("a");
+        a.href = canvas.toDataURL(type);
+        a.download = filename;
+        a.click();
+      },
+      clear,
+    }),
+    [canvas]
+  );
+
   return (
     <canvas
       onTouchStart={touchStart}
@@ -164,4 +202,4 @@ export function Artboard({
       {...props}
     />
   );
-}
+});
