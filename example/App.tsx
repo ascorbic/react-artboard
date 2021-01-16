@@ -15,20 +15,38 @@ export function App() {
         height: "calc(100vh - 20px)",
       }}
     >
-      <div>
-        <input
-          type="color"
-          value={color}
-          onInput={(evt) => setColor(evt.currentTarget.value)}
-        />
-        <input
-          type="range"
-          min={5}
-          max={50}
-          value={strokeWidth}
-          onInput={(evt) => setStrokeWidth(parseInt(evt.currentTarget.value))}
-        />
-        {setStrokeWidth}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: 5,
+        }}
+      >
+        <h1>
+          <a href="https://github.com/ascorbic/react-artboard">
+            react-artboard
+          </a>
+        </h1>
+        <label>
+          Color:
+          <input
+            type="color"
+            value={color}
+            onInput={(evt) => setColor(evt.currentTarget.value)}
+          />
+        </label>
+        <label>
+          Brush size:
+          <input
+            type="range"
+            min={5}
+            max={100}
+            value={strokeWidth}
+            onInput={(evt) => setStrokeWidth(parseInt(evt.currentTarget.value))}
+          />
+          {setStrokeWidth}
+        </label>
         <button onClick={() => artboardRef?.download()}>Download</button>
         <button onClick={() => artboardRef?.clear()}>Clear</button>
       </div>

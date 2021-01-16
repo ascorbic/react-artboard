@@ -36,5 +36,8 @@
   },
   "dependencies": {
     "tinycolor2": "^1.4.2"
-  }
+  },
+  "description": "A realistic paint component",
+  "repository": "git@github.com:ascorbic/react-artboard.git",
+  "homepage": "https://github.com/ascorbic/react-artboard"
 }
