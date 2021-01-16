@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Artboard, ArtboardHandles } from "./components/Artboard";
+import { Artboard, ArtboardRef } from "./components/Artboard";
+import { useBrush } from "./tools/brush";
 
 export function App() {
   const [color, setColor] = useState("#993366");
-  const [size, setSize] = useState(20);
-  const [ref, setRef] = useState<ArtboardHandles | null>();
+  const [strokeWidth, setStrokeWidth] = useState(40);
+  const [artboardRef, setArtboardRef] = useState<ArtboardRef | null>();
+  const brush = useBrush({ color, strokeWidth });
+
   return (
     <main
       style={{
@@ -23,18 +26,17 @@ export function App() {
           type="range"
           min={5}
           max={50}
-          value={size}
-          onInput={(evt) => setSize(parseInt(evt.currentTarget.value))}
+          value={strokeWidth}
+          onInput={(evt) => setStrokeWidth(parseInt(evt.currentTarget.value))}
         />
-        {size}
-        <button onClick={() => ref?.download()}>Download</button>
-        <button onClick={() => ref?.clear()}>Clear</button>
+        {setStrokeWidth}
+        <button onClick={() => artboardRef?.download()}>Download</button>
+        <button onClick={() => artboardRef?.clear()}>Clear</button>
       </div>
       <Artboard
-        color={color}
-        strokeWidth={size}
-        ref={setRef}
-        style={{ border: "1px red solid", flex: 1 }}
+        tool={brush}
+        ref={setArtboardRef}
+        style={{ border: "1px gray solid", flex: 1 }}
       />
     </main>
   );

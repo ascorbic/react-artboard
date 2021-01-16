@@ -9,31 +9,32 @@ import React, {
 
 import {
   Brush,
-  circleCursor,
-  drawStroke,
   getMousePoint,
-  getNewAngle,
   getTouchPoint,
-  makeBrush,
   mouseButtonIsDown,
   Point,
 } from "../helpers";
 
 export interface Props extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
-  color?: string;
-  strokeWidth?: number;
+  tool: ToolHandlers;
 }
 
-export interface ArtboardHandles {
+export interface ArtboardRef {
   download: (filename?: string, type?: string) => void;
   clear: () => void;
 }
 
+export interface ToolHandlers {
+  startStroke?: (point: Point, context: CanvasRenderingContext2D) => void;
+  continueStroke?: (point: Point, context: CanvasRenderingContext2D) => void;
+  endStroke?: (context: CanvasRenderingContext2D) => void;
+  cursor?: string;
+}
+
 export const Artboard = forwardRef(function Artboard(
-  { color = "#000000", strokeWidth = 25, style, ...props }: Props,
-  ref: ForwardedRef<ArtboardHandles>
+  { tool, style, ...props }: Props,
+  ref: ForwardedRef<ArtboardRef>
 ) {
-  const [brush, setBrush] = useState<Brush>([]);
   const [context, setContext] = useState<CanvasRenderingContext2D | null>();
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [drawing, setDrawing] = useState(false);
@@ -43,41 +44,33 @@ export const Artboard = forwardRef(function Artboard(
 
   const startStroke = useCallback(
     (point: Point) => {
+      if (!context) {
+        return;
+      }
       setDrawing(true);
       currentAngle.current = undefined;
-      setBrush(makeBrush(strokeWidth, color, 5));
       latestPoint.current = point;
+      tool.startStroke?.(point, context);
     },
-    [setBrush, setDrawing, strokeWidth, color]
+    [setDrawing, tool, context]
   );
 
   const continueStroke = useCallback(
     (newPoint: Point) => {
-      if (!latestPoint.current || !context) {
+      if (!context) {
         return;
       }
-      const newAngle = getNewAngle(
-        latestPoint.current,
-        newPoint,
-        currentAngle.current
-      );
-      if (typeof currentAngle.current === "undefined") {
-        currentAngle.current = newAngle % (Math.PI * 2);
-      }
-      drawStroke(
-        brush,
-        latestPoint.current,
-        newPoint,
-        currentAngle.current,
-        newAngle,
-        strokeWidth,
-        context
-      );
-      currentAngle.current = newAngle % (Math.PI * 2);
-      latestPoint.current = newPoint;
+      tool.continueStroke?.(newPoint, context);
     },
-    [brush, strokeWidth, context]
+    [tool, context]
   );
+
+  const endStroke = useCallback(() => {
+    setDrawing(false);
+    if (context) {
+      tool.endStroke?.(context);
+    }
+  }, [tool, context]);
 
   const mouseMove = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
@@ -156,10 +149,6 @@ export const Artboard = forwardRef(function Artboard(
     [mouseMove, drawing]
   );
 
-  const endStroke = useCallback(() => {
-    setDrawing(false);
-  }, []);
-
   const mouseLeave = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
       if (!drawing) {
@@ -190,7 +179,7 @@ export const Artboard = forwardRef(function Artboard(
 
   return (
     <canvas
-      style={{ ...style, cursor: circleCursor(strokeWidth) }}
+      style={{ cursor: tool?.cursor, ...style }}
       onTouchStart={touchStart}
       onMouseDown={mouseDown}
       onMouseEnter={mouseEnter}
