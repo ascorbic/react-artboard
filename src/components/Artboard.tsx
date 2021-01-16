@@ -21,6 +21,7 @@ export interface Props extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
 
 export interface ArtboardRef {
   download: (filename?: string, type?: string) => void;
+  getImageAsDataUri: (type?: string) => string | undefined;
   clear: () => void;
 }
 
@@ -173,6 +174,7 @@ export const Artboard = forwardRef(function Artboard(
         a.click();
       },
       clear,
+      getImageAsDataUri: (type?: string) => canvas?.toDataURL(type),
     }),
     [canvas]
   );
