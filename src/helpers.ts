@@ -4,7 +4,7 @@ export function varyColour(sourceColour: string, varyBrightness: number) {
   const amount = Math.round(Math.random() * varyBrightness);
   const alpha = 1 - Math.random() / 4;
   const colour = tinycolor(sourceColour);
-  const varied = colour.darken(amount).setAlpha(alpha);
+  const varied = colour.darken(amount - varyBrightness / 2).setAlpha(alpha);
   return varied.toPercentageRgbString();
 }
 
