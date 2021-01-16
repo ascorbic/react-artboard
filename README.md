@@ -1,13 +1,14 @@
 # react-artboard
 
-A realistic canvas painting library for React that doesn't look like MS Paint.
+A realistic canvas painting library for React.
+
+![artboard](https://raw.githubusercontent.com/ascorbic/react-artboard/main/artboard.png)
+
 
 react-artboard includes an `Artboard` component and one paintbrush tool. Tools
 are implemented as custom hooks, so you can add your own brushes and other tools.
 
 [Try the demo](https://react-artboard.netlify.app/)
-
-![artboard](https://raw.githubusercontent.com/ascorbic/react-artboard/main/artboard.png)
 
 ## Installation
 
