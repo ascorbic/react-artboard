@@ -88,7 +88,6 @@ export const Artboard = forwardRef(function Artboard(
       if (!drawing) {
         return;
       }
-      event.preventDefault();
       continueStroke(getTouchPoint(event));
     },
     [continueStroke]
@@ -181,7 +180,7 @@ export const Artboard = forwardRef(function Artboard(
 
   return (
     <canvas
-      style={{ cursor: tool?.cursor, ...style }}
+      style={{ cursor: tool?.cursor, touchAction: "none", ...style }}
       onTouchStart={touchStart}
       onMouseDown={mouseDown}
       onMouseEnter={mouseEnter}
