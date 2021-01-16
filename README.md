@@ -15,6 +15,7 @@ npm install react-artboard
 
 ## Usage
 
+For a full usage example, see [this file](https://github.com/ascorbic/react-artboard/blob/main/example/App.tsx). 
 The simplest usage of the component is like this:
 
 ```jsx
@@ -132,6 +133,16 @@ This is currently the only included tool, which emulates a paintbrush.
 #### Options
 - **`color`** A CSS string color.
 - **`strokeWidth`** The width of the brush
+
+## Custom brushes
+
+See the source for `useBrush` to see how to create a brush. It must return an object, with the following optional callbacks:
+
+- **`startStroke?`**: `(point: Point, context: CanvasRenderingContext2D) => void`
+- **`continueStroke?`**: `(point: Point, context: CanvasRenderingContext2D) => void`
+- **`endStroke?`**: `(context: CanvasRenderingContext2D) => void`
+- **`cursor?`**: `string`
+  A CSS-compatible string for the cursor to display. You can use the `circleCursor()` helper to display a resizable circle for the cursor
 
 
 © Copyright [Matt Kane](https://mk.gg) 2021. MIT Licence
