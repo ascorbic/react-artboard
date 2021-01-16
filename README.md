@@ -145,4 +145,4 @@ See the source for `useBrush` to see how to create a brush. It must return an ob
   A CSS-compatible string for the cursor to display. You can use the `circleCursor()` helper to display a resizable circle for the cursor
 
 
-© Copyright [Matt Kane](https://mk.gg) 2021. MIT Licence
+© Copyright [Matt Kane](https://mk.gg) ([@ascorbic](https://github.com/ascorbic)) 2021. MIT Licence
