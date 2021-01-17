@@ -65,7 +65,7 @@ export function App() {
         </label>
         <div style={{ display: "flex" }}>
           {tools.map((tool, index) => (
-            <label style={{ cursor: "pointer" }}>
+            <label key={tool.name} style={{ cursor: "pointer" }}>
               <input
                 type="radio"
                 checked={index === currentTool}

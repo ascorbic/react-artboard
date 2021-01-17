@@ -25,8 +25,6 @@ export function useNeighbourBrush({
 
   const startStroke = useCallback(
     (point: Point, context: CanvasRenderingContext2D) => {
-      console.log({ spreadFactor });
-
       context.globalCompositeOperation = "darken";
       context.lineWidth = 1;
       context.lineJoin = context.lineCap = "round";
