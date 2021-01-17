@@ -2,10 +2,13 @@ import React, {
   ForwardedRef,
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from "react";
+
+import { History } from "../history";
 
 import {
   getMousePoint,
@@ -17,6 +20,7 @@ import {
 export interface ArtboardProps
   extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   tool: ToolHandlers;
+  history?: History;
 }
 
 export interface ArtboardRef {
@@ -34,7 +38,7 @@ export interface ToolHandlers {
 }
 
 export const Artboard = forwardRef(function Artboard(
-  { tool, style, ...props }: ArtboardProps,
+  { tool, style, history, ...props }: ArtboardProps,
   ref: ForwardedRef<ArtboardRef>
 ) {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>();
@@ -46,6 +50,7 @@ export const Artboard = forwardRef(function Artboard(
       if (!context) {
         return;
       }
+      context.save();
       setDrawing(true);
       tool.startStroke?.(point, context);
     },
@@ -66,8 +71,12 @@ export const Artboard = forwardRef(function Artboard(
     setDrawing(false);
     if (context) {
       tool.endStroke?.(context);
+      context.restore();
+      if (canvas && history) {
+        history.pushState(canvas);
+      }
     }
-  }, [tool, context]);
+  }, [tool, context, canvas, history]);
 
   const mouseMove = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
@@ -114,24 +123,32 @@ export const Artboard = forwardRef(function Artboard(
     if (!context || !canvas) {
       return;
     }
-    context.fillStyle = "white";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    if (canvas && history) {
+      history.pushState(canvas);
+    }
   }, [context, canvas]);
 
-  const gotRef = useCallback((canvasRef: HTMLCanvasElement) => {
-    if (!canvasRef) {
-      return;
-    }
-    canvasRef.width = canvasRef.offsetWidth;
-    canvasRef.height = canvasRef.offsetHeight;
-    const ctx = canvasRef.getContext("2d");
-    setCanvas(canvasRef);
-    setContext(ctx);
-    if (ctx) {
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, canvasRef.width, canvasRef.height);
-    }
-  }, []);
+  const gotRef = useCallback(
+    (canvasRef: HTMLCanvasElement) => {
+      if (!canvasRef) {
+        return;
+      }
+      canvasRef.width = canvasRef.offsetWidth;
+      canvasRef.height = canvasRef.offsetHeight;
+      const ctx = canvasRef.getContext("2d");
+      setCanvas(canvasRef);
+      setContext(ctx);
+      if (ctx) {
+        if (history) {
+          console.log("setting context");
+          history.setContext(ctx);
+          history.pushState(canvasRef);
+        }
+      }
+    },
+    [history]
+  );
 
   const mouseEnter = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {

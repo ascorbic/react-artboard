@@ -7,6 +7,7 @@ import {
   ArtboardRef,
   useShadingBrush,
 } from "../src/";
+import { useHistory } from "../src/history";
 import "./style.css";
 export function App() {
   const [color, setColor] = useState("#333333");
@@ -22,6 +23,8 @@ export function App() {
   });
   const tools = [shading, brush, marker, airbrush];
   const [currentTool, setCurrentTool] = useState(0);
+
+  const { undo, redo, history, canUndo, canRedo } = useHistory();
 
   return (
     <main
@@ -66,6 +69,13 @@ export function App() {
           />
           <span>{strokeWidth}</span>
         </label>
+        <button onClick={undo} disabled={!canUndo}>
+          Undo
+        </button>
+        <button onClick={redo} disabled={!canRedo}>
+          Redo
+        </button>
+
         <div style={{ display: "flex" }}>
           {tools.map((tool, index) => (
             <label key={tool.name} style={{ cursor: "pointer" }}>
@@ -84,6 +94,7 @@ export function App() {
       <Artboard
         tool={tools[currentTool]}
         ref={setArtboardRef}
+        history={history}
         style={{ border: "1px gray solid", flex: 1 }}
       />
     </main>
