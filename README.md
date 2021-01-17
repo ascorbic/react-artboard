@@ -132,7 +132,8 @@ export function App() {
 
 `useBrush(options)`
 
-This is a realistic paintbrush. 
+![paint](./images/paint.png)
+
 
 #### Options
 - **`color`** A CSS string color.
@@ -143,6 +144,9 @@ This is a realistic paintbrush.
 `useShadingBrush()`
 
 This tools is inspired by [some blog posts](#sources), exploring the use of "neighbour point" sketching. It gives a fun, unusual effect that is similar to pencil shading. It is highly configurable, giving quite different effects according to the different parameters.
+
+![shading](./images/shading.png)
+
 
 #### Options
 - **`color`** A CSS string color. _Default: `#000000`_
@@ -155,8 +159,7 @@ This tools is inspired by [some blog posts](#sources), exploring the use of "nei
 
 `useMarker(options)`
 
-A marker pen
-
+![marker](./images/marker.png)
 #### Options
 - **`color`** A CSS string color.
 - **`strokeWidth`** The width of the brush
@@ -165,8 +168,7 @@ A marker pen
 
 `useAirbrush(options)`
 
-An airbrush
-
+![airbrush](./images/airbrush.png)
 #### Options
 - **`color`** A CSS string color.
 - **`strokeWidth`** The width of the brush
@@ -180,6 +182,17 @@ See the source for `useBrush` to see how to create a brush. It must return an ob
 - **`endStroke?`**: `(context: CanvasRenderingContext2D) => void`
 - **`cursor?`**: `string`
   A CSS-compatible string for the cursor to display. You can use the `circleCursor()` helper to display a resizable circle for the cursor
+
+
+## History
+
+The `useHistory()` hook allows undo/redo functionality. Pass it a `size` value to limit the size of the history stack. It returns and object with the following:
+
+- **`history`**: The `History` object. Pass this to the `Artboard`.
+- **`undo()`**: Reverts the image to the previous state.
+- **`redo()`**: Move forward in history, if available.
+- **`canUndo`**: History is available to undo
+- **`canRedo`**: History is available to redo
 
 
 © Copyright [Matt Kane](https://mk.gg) ([@ascorbic](https://github.com/ascorbic)) 2021. MIT Licence
