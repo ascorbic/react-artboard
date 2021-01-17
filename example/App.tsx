@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useBrush, Artboard, ArtboardRef } from "../src/";
+import { useBrush, useMarker, Artboard, ArtboardRef } from "../src/";
 import "./style.css";
 export function App() {
   const [color, setColor] = useState("#993366");
   const [strokeWidth, setStrokeWidth] = useState(40);
   const [artboardRef, setArtboardRef] = useState<ArtboardRef | null>();
   const brush = useBrush({ color, strokeWidth });
+  const marker = useMarker({ color, strokeWidth });
+  const tools = [brush, marker];
+  const [currentTool, setCurrentTool] = useState(0);
 
   return (
     <main
@@ -51,7 +54,7 @@ export function App() {
         <button onClick={() => artboardRef?.clear()}>Clear</button>
       </div>
       <Artboard
-        tool={brush}
+        tool={tools[currentTool]}
         ref={setArtboardRef}
         style={{ border: "1px gray solid", flex: 1 }}
       />

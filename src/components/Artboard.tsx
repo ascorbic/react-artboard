@@ -40,17 +40,13 @@ export const Artboard = forwardRef(function Artboard(
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [drawing, setDrawing] = useState(false);
 
-  const currentAngle = useRef<number>();
-  const latestPoint = useRef<Point>();
-
   const startStroke = useCallback(
     (point: Point) => {
       if (!context) {
         return;
       }
       setDrawing(true);
-      currentAngle.current = undefined;
-      latestPoint.current = point;
+      console.log("setdrawing");
       tool.startStroke?.(point, context);
     },
     [setDrawing, tool, context]
@@ -80,7 +76,7 @@ export const Artboard = forwardRef(function Artboard(
       }
       continueStroke(getMousePoint(event));
     },
-    [continueStroke]
+    [continueStroke, drawing]
   );
 
   const touchMove = useCallback(
