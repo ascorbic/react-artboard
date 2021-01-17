@@ -194,10 +194,9 @@ The `useHistory()` hook allows undo/redo functionality. Pass it a `size` value t
 - **`canUndo`**: History is available to undo
 - **`canRedo`**: History is available to redo
 
-
-© Copyright [Matt Kane](https://mk.gg) ([@ascorbic](https://github.com/ascorbic)) 2021. MIT Licence
-
 ## Sources
-These posts gave inspirsation, particularly for the shading tool.
+These posts gave inspiration, particularly for the shading tool.
 - [Exploring canvas drawing techniques](http://perfectionkills.com/exploring-canvas-drawing-techniques/)
 - [Harmony brush adoption in Krita: Sketch](http://lukast.mediablog.sk/log/?p=347)
+
+© Copyright [Matt Kane](https://mk.gg) ([@ascorbic](https://github.com/ascorbic)) 2021. MIT Licence
