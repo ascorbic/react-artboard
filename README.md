@@ -1,12 +1,11 @@
 # react-artboard
 
-A realistic canvas painting library for React.
+A freeform sketching component for React
 
 ![artboard](https://raw.githubusercontent.com/ascorbic/react-artboard/main/artboard.png)
 
 
-react-artboard includes an `Artboard` component and one paintbrush tool. Tools
-are implemented as custom hooks, so you can add your own brushes and other tools.
+react-artboard includes an `Artboard` component and several tools, including a realistic paintbrush, a marker pen and airbrush, as well as the abstract shading tool. Tools are implemented as custom hooks, so you can add your own brushes and other tools.
 
 [Try the demo](https://react-artboard.netlify.app/)
 
@@ -129,9 +128,44 @@ export function App() {
         
       Clears the image
 
-### `useBrush(options)`
+### Paintbrush
 
-This is currently the only included tool, which emulates a paintbrush. 
+`useBrush(options)`
+
+This is a realistic paintbrush. 
+
+#### Options
+- **`color`** A CSS string color.
+- **`strokeWidth`** The width of the brush
+
+### Shading
+
+`useShadingBrush()`
+
+This tools is inspired by [some blog posts](#sources), exploring the use of "neighbour point" sketching. It gives a fun, unusual effect that is similar to pencil shading. It is highly configurable, giving quite different effects according to the different parameters.
+
+#### Options
+- **`color`** A CSS string color. _Default: `#000000`_
+- **`spreadFactor`** The length of the connecting line. A value of `1` means it exactly joins the two points, while `0.5` only covers half the distance. A value above `1` gives a "fur" effect as the line extends beyond the points. _Default: 0.9_
+- **`distanceThreshold`** How near the point needs to be to join, in pixels. _Default: 50_
+- **`neighbourStrokeWidth`** Width of the stroke joining the points. _Default: 1_
+- **`neighbourColor`** Color of the line joining the points. _Default: `color` value with 0.2 alpha_
+
+### Marker pen
+
+`useMarker(options)`
+
+A marker pen
+
+#### Options
+- **`color`** A CSS string color.
+- **`strokeWidth`** The width of the brush
+
+### Airbrush
+
+`useAirbrush(options)`
+
+An airbrush
 
 #### Options
 - **`color`** A CSS string color.
@@ -149,3 +183,8 @@ See the source for `useBrush` to see how to create a brush. It must return an ob
 
 
 © Copyright [Matt Kane](https://mk.gg) ([@ascorbic](https://github.com/ascorbic)) 2021. MIT Licence
+
+## Sources
+These posts gave inspirsation, particularly for the shading tool.
+- [Exploring canvas drawing techniques](http://perfectionkills.com/exploring-canvas-drawing-techniques/)
+- [Harmony brush adoption in Krita: Sketch](http://lukast.mediablog.sk/log/?p=347)

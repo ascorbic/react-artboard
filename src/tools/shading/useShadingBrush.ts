@@ -3,25 +3,24 @@ import tinycolor from "tinycolor2";
 
 import { ToolHandlers } from "../../components/Artboard";
 import { Point } from "../../utils/pointUtils";
-export interface UseNeighbourProps {
+export interface UseShadingProps {
   color?: string;
   neighbourColor?: string;
   neighbourStrokeWidth?: number;
-  strokeWidth?: number;
   distanceThreshold?: number;
   spreadFactor?: number;
 }
 
-export function useNeighbourBrush({
+export function useShadingBrush({
   color = "#000000",
-  strokeWidth = 25,
   neighbourColor,
-  distanceThreshold = 1000,
+  distanceThreshold = 40,
   neighbourStrokeWidth = 1,
-  spreadFactor = 0.8,
-}: UseNeighbourProps): ToolHandlers {
+  spreadFactor = 0.9,
+}: UseShadingProps): ToolHandlers {
   neighbourColor ||= tinycolor(color).setAlpha(0.2).toPercentageRgbString();
   const points = useRef<Array<Point>>([]);
+  const threshold = distanceThreshold * distanceThreshold;
 
   const startStroke = useCallback(
     (point: Point, context: CanvasRenderingContext2D) => {
@@ -51,10 +50,7 @@ export function useNeighbourBrush({
         const dy = point[1] - newPoint[1];
         const distance = dx * dx + dy * dy;
 
-        if (
-          distance < distanceThreshold &&
-          Math.random() > distance / distanceThreshold
-        ) {
+        if (distance < threshold && Math.random() > distance / threshold) {
           context.beginPath();
           context.strokeStyle = neighbourColor as string;
           context.moveTo(
@@ -69,7 +65,7 @@ export function useNeighbourBrush({
         }
       }
     },
-    [strokeWidth, color, spreadFactor, distanceThreshold, neighbourColor]
+    [neighbourStrokeWidth, color, spreadFactor, threshold, neighbourColor]
   );
 
   const endStroke = useCallback((context: CanvasRenderingContext2D) => {
@@ -77,5 +73,5 @@ export function useNeighbourBrush({
   }, []);
   const cursor = "crosshair";
 
-  return { name: "Sketch", startStroke, continueStroke, endStroke, cursor };
+  return { name: "Shading", startStroke, continueStroke, endStroke, cursor };
 }

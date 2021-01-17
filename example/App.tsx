@@ -5,7 +5,7 @@ import {
   useAirbrush,
   Artboard,
   ArtboardRef,
-  useNeighbourBrush,
+  useShadingBrush,
 } from "../src/";
 import "./style.css";
 export function App() {
@@ -15,12 +15,12 @@ export function App() {
   const brush = useBrush({ color, strokeWidth });
   const marker = useMarker({ color, strokeWidth });
   const airbrush = useAirbrush({ color, strokeWidth });
-  const neighbour = useNeighbourBrush({
+  const shading = useShadingBrush({
     color,
     spreadFactor: (1 / 45) * strokeWidth,
-    distanceThreshold: 5000,
+    distanceThreshold: 100,
   });
-  const tools = [neighbour, brush, marker, airbrush];
+  const tools = [shading, brush, marker, airbrush];
   const [currentTool, setCurrentTool] = useState(0);
 
   return (
