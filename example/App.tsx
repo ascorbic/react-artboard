@@ -29,6 +29,8 @@ export function App() {
         display: "flex",
         flexDirection: "column",
         height: "calc(100vh - 20px)",
+        touchAction: "none",
+        maxWidth: "calc(100vw - 20px)",
       }}
     >
       <div
@@ -37,6 +39,7 @@ export function App() {
           flexDirection: "row",
           alignItems: "center",
           marginBottom: 5,
+          overflow: "scroll",
         }}
       >
         <h1>
