@@ -132,7 +132,7 @@ export function App() {
 
 `useBrush(options)`
 
-![paint](./images/paint.png)
+![paint](https://raw.githubusercontent.com/ascorbic/react-artboard/main/images/paint.png)
 
 
 #### Options
@@ -145,7 +145,7 @@ export function App() {
 
 This tools is inspired by [some blog posts](#sources), exploring the use of "neighbour point" sketching. It gives a fun, unusual effect that is similar to pencil shading. It is highly configurable, giving quite different effects according to the different parameters.
 
-![shading](./images/shading.png)
+![shading](https://raw.githubusercontent.com/ascorbic/react-artboard/main/images/shading.png)
 
 
 #### Options
@@ -159,7 +159,7 @@ This tools is inspired by [some blog posts](#sources), exploring the use of "nei
 
 `useMarker(options)`
 
-![marker](./images/marker.png)
+![marker](https://raw.githubusercontent.com/ascorbic/react-artboard/main/images/marker.png)
 #### Options
 - **`color`** A CSS string color.
 - **`strokeWidth`** The width of the brush
@@ -168,7 +168,7 @@ This tools is inspired by [some blog posts](#sources), exploring the use of "nei
 
 `useAirbrush(options)`
 
-![airbrush](./images/airbrush.png)
+![airbrush](https://raw.githubusercontent.com/ascorbic/react-artboard/main/images/airbrush.png)
 #### Options
 - **`color`** A CSS string color.
 - **`strokeWidth`** The width of the brush
