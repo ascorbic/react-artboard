@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import { useBrush, useMarker, Artboard, ArtboardRef } from "../src/";
+import {
+  useBrush,
+  useMarker,
+  useAirbrush,
+  Artboard,
+  ArtboardRef,
+  useNeighbourBrush,
+} from "../src/";
 import "./style.css";
 export function App() {
-  const [color, setColor] = useState("#993366");
+  const [color, setColor] = useState("#333333");
   const [strokeWidth, setStrokeWidth] = useState(40);
   const [artboardRef, setArtboardRef] = useState<ArtboardRef | null>();
   const brush = useBrush({ color, strokeWidth });
   const marker = useMarker({ color, strokeWidth });
-  const tools = [brush, marker];
+  const airbrush = useAirbrush({ color, strokeWidth });
+  const neighbour = useNeighbourBrush({
+    color,
+    spreadFactor: (1 / 45) * strokeWidth,
+    distanceThreshold: 5000,
+  });
+  const tools = [neighbour, brush, marker, airbrush];
   const [currentTool, setCurrentTool] = useState(0);
 
   return (
@@ -40,7 +53,7 @@ export function App() {
           />
         </label>
         <label>
-          Brush size:
+          Size:
           <input
             type="range"
             min={5}
@@ -50,6 +63,18 @@ export function App() {
           />
           <span>{strokeWidth}</span>
         </label>
+        <div style={{ display: "flex" }}>
+          {tools.map((tool, index) => (
+            <label style={{ cursor: "pointer" }}>
+              <input
+                type="radio"
+                checked={index === currentTool}
+                onChange={() => setCurrentTool(index)}
+              />{" "}
+              {tool.name}{" "}
+            </label>
+          ))}
+        </div>
         <button onClick={() => artboardRef?.download()}>Download</button>
         <button onClick={() => artboardRef?.clear()}>Clear</button>
       </div>

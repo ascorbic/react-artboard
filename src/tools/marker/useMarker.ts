@@ -48,6 +48,7 @@ export function useMarker({
         context.lineTo(newPoint[0] - offset, newPoint[1] - offset);
         context.stroke();
       }
+      context.globalAlpha = 1;
       context.beginPath();
 
       lastPoint.current = newPoint;
@@ -57,5 +58,5 @@ export function useMarker({
 
   const cursor = circleCursor(strokeWidth);
 
-  return { startStroke, continueStroke, cursor };
+  return { name: "Marker pen", startStroke, continueStroke, cursor };
 }

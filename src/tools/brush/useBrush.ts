@@ -106,7 +106,9 @@ export function useBrush({
   const lastPoint = useRef<Point>();
 
   const startStroke = useCallback(
-    (point: Point) => {
+    (point: Point, context: CanvasRenderingContext2D) => {
+      // context.globalCompositeOperation = "darken";
+
       currentAngle.current = undefined;
       setBrush(makeBrush(strokeWidth, color, varyBrightness));
       lastPoint.current = point;
@@ -145,5 +147,5 @@ export function useBrush({
 
   const cursor = circleCursor(strokeWidth);
 
-  return { startStroke, continueStroke, cursor };
+  return { name: "Paintbrush", startStroke, continueStroke, cursor };
 }

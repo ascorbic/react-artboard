@@ -26,6 +26,7 @@ export interface ArtboardRef {
 }
 
 export interface ToolHandlers {
+  name: string;
   startStroke?: (point: Point, context: CanvasRenderingContext2D) => void;
   continueStroke?: (point: Point, context: CanvasRenderingContext2D) => void;
   endStroke?: (context: CanvasRenderingContext2D) => void;
