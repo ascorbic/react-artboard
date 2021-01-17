@@ -47,7 +47,6 @@ export const Artboard = forwardRef(function Artboard(
         return;
       }
       setDrawing(true);
-      console.log("setdrawing");
       tool.startStroke?.(point, context);
     },
     [setDrawing, tool, context]
@@ -87,7 +86,7 @@ export const Artboard = forwardRef(function Artboard(
       }
       continueStroke(getTouchPoint(event));
     },
-    [continueStroke]
+    [continueStroke, drawing]
   );
 
   const mouseDown = useCallback(
@@ -106,7 +105,6 @@ export const Artboard = forwardRef(function Artboard(
       if (drawing) {
         return;
       }
-      event.preventDefault();
       startStroke(getTouchPoint(event));
     },
     [drawing, startStroke]
