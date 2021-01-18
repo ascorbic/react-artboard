@@ -2,9 +2,7 @@ import React, {
   ForwardedRef,
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
-  useRef,
   useState,
 } from "react";
 
@@ -127,7 +125,7 @@ export const Artboard = forwardRef(function Artboard(
     if (canvas && history) {
       history.pushState(canvas);
     }
-  }, [context, canvas]);
+  }, [context, canvas, history]);
 
   const gotRef = useCallback(
     (canvasRef: HTMLCanvasElement) => {
@@ -139,12 +137,9 @@ export const Artboard = forwardRef(function Artboard(
       const ctx = canvasRef.getContext("2d");
       setCanvas(canvasRef);
       setContext(ctx);
-      if (ctx) {
-        if (history) {
-          console.log("setting context");
-          history.setContext(ctx);
-          history.pushState(canvasRef);
-        }
+      if (ctx && history) {
+        history.setContext(ctx);
+        history.pushState(canvasRef);
       }
     },
     [history]
@@ -158,7 +153,7 @@ export const Artboard = forwardRef(function Artboard(
         endStroke();
       }
     },
-    [mouseMove, drawing]
+    [drawing, mouseDown, endStroke]
   );
 
   const mouseLeave = useCallback(
@@ -169,13 +164,13 @@ export const Artboard = forwardRef(function Artboard(
       continueStroke(getMousePoint(event));
       endStroke();
     },
-    [drawing]
+    [continueStroke, drawing, endStroke]
   );
 
   useImperativeHandle(
     ref,
     () => ({
-      download: (filename: string = "image.png", type?: string) => {
+      download: (filename = "image.png", type?: string) => {
         if (!canvas) {
           return;
         }
@@ -187,7 +182,7 @@ export const Artboard = forwardRef(function Artboard(
       clear,
       getImageAsDataUri: (type?: string) => canvas?.toDataURL(type),
     }),
-    [canvas]
+    [canvas, clear]
   );
 
   return (

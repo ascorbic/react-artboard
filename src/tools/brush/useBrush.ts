@@ -13,7 +13,7 @@ function makeBrush(
   varyBrightness: number
 ): Brush {
   const brush: Brush = [];
-  let bristleCount = Math.round(strokeWidth / 3);
+  const bristleCount = Math.round(strokeWidth / 3);
   const gap = strokeWidth / bristleCount;
   for (let i = 0; i < bristleCount; i++) {
     const distance =
@@ -106,14 +106,12 @@ export function useBrush({
   const lastPoint = useRef<Point>();
 
   const startStroke = useCallback(
-    (point: Point, context: CanvasRenderingContext2D) => {
-      // context.globalCompositeOperation = "darken";
-
+    (point: Point) => {
       currentAngle.current = undefined;
       setBrush(makeBrush(strokeWidth, color, varyBrightness));
       lastPoint.current = point;
     },
-    [setBrush, strokeWidth, color]
+    [setBrush, strokeWidth, color, varyBrightness]
   );
 
   const continueStroke = useCallback(
