@@ -14,6 +14,26 @@ other tools.
 
 [Try the demo](https://react-artboard.netlify.app/)
 
+- [react-artboard](#react-artboard)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [API](#api)
+    - [`Artboard`](#artboard)
+      - [Props](#props)
+    - [Paintbrush](#paintbrush)
+      - [Options](#options)
+    - [Shading](#shading)
+      - [Options](#options-1)
+    - [Watercolor](#watercolor)
+      - [Options](#options-2)
+    - [Marker pen](#marker-pen)
+      - [Options](#options-3)
+    - [Airbrush](#airbrush)
+      - [Options](#options-4)
+  - [Custom brushes](#custom-brushes)
+  - [History](#history)
+  - [Sources](#sources)
+
 ## Installation
 
 ```shell
@@ -241,6 +261,10 @@ These posts gave inspiration, particularly for the shading tool.
 
 - [Exploring canvas drawing techniques](http://perfectionkills.com/exploring-canvas-drawing-techniques/)
 - [Harmony brush adoption in Krita: Sketch](http://lukast.mediablog.sk/log/?p=347)
+
+Inspiration for the watercolor tool:
+- [Generative watercolor in Processing](https://sighack.com/post/generative-watercolor-in-processing)
+- [How to hack a painting](https://tylerxhobbs.com/essays/2020/how-to-hack-a-painting)
 
 © Copyright [Matt Kane](https://mk.gg)
 ([@ascorbic](https://github.com/ascorbic)) 2021. MIT Licence
