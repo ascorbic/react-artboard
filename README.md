@@ -175,6 +175,18 @@ according to the different parameters.
 - **`neighbourColor`** Color of the line joining the points. _Default: `color`
   value with 0.2 alpha_
 
+### Watercolor
+
+`useWatercolor(options)`
+
+![paint](https://raw.githubusercontent.com/ascorbic/react-artboard/main/images/watercolor.png)
+
+#### Options
+
+- **`color`** A CSS string color.
+- **`strokeWidth`** The width of the brush
+
+
 ### Marker pen
 
 `useMarker(options)`
