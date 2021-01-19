@@ -21,7 +21,7 @@ function normalRandom() {
   return val;
 }
 export function makePolygon(
-  point: Point,
+  centre: Point,
   sides: number,
   radius: number
 ): Array<Point> {
@@ -29,8 +29,8 @@ export function makePolygon(
   const result: Array<Point> = [];
   for (let i = 1; i <= sides; i++) {
     result.push([
-      radius * Math.cos(increment * i) + point[0],
-      radius * Math.sin(increment * i) + point[1],
+      radius * Math.cos(increment * i) + centre[0],
+      radius * Math.sin(increment * i) + centre[1],
     ]);
   }
   return result;

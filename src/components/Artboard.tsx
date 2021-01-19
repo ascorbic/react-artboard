@@ -121,7 +121,10 @@ export const Artboard = forwardRef(function Artboard(
     if (!context || !canvas) {
       return;
     }
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.save();
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.restore();
     if (canvas && history) {
       history.pushState(canvas);
     }
@@ -137,7 +140,13 @@ export const Artboard = forwardRef(function Artboard(
       const ctx = canvasRef.getContext("2d");
       setCanvas(canvasRef);
       setContext(ctx);
-      if (ctx && history) {
+      if (!ctx) {
+        return;
+      }
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvasRef.width, canvasRef.height);
+      ctx.fillStyle = "transparent";
+      if (history) {
         history.setContext(ctx);
         history.pushState(canvasRef);
       }

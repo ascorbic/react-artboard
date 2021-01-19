@@ -29,7 +29,7 @@ export function useShadingBrush({
       context.lineJoin = context.lineCap = "round";
       points.current = [point];
     },
-    [color, spreadFactor]
+    []
   );
 
   const continueStroke = useCallback(

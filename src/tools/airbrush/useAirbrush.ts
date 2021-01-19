@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import tinycolor from "tinycolor2";
 import { ToolHandlers } from "../../components/Artboard";
 import { Point } from "../../utils/pointUtils";
@@ -38,7 +38,7 @@ export function useAirbrush({
       context.lineTo(point[0], point[1]);
       context.stroke();
     },
-    [strokeWidth]
+    []
   );
 
   const cursor = circleCursor(strokeWidth);

@@ -1,6 +1,6 @@
 # react-artboard
 
-A freeform sketching component for React. Try the
+A freeform sketching component for React. [Try the
 demo](https://react-artboard.netlify.app/)
 
 ![artboard](https://raw.githubusercontent.com/ascorbic/react-artboard/main/artboard.png)

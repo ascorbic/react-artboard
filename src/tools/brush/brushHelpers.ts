@@ -1,7 +1,10 @@
 import tinycolor from "tinycolor2";
 import { Point } from "../../utils/pointUtils";
 
-export function varyColour(sourceColour: string, varyBrightness: number) {
+export function varyColour(
+  sourceColour: string,
+  varyBrightness: number
+): string {
   const amount = Math.round(Math.random() * varyBrightness);
   const alpha = 1 - Math.random() / 4;
   const colour = tinycolor(sourceColour);
@@ -24,7 +27,7 @@ export const rotatePoint = (
   origin[1] + distance * Math.sin(angle),
 ];
 
-export const getBearing = (origin: Point, destination: Point) =>
+export const getBearing = (origin: Point, destination: Point): number =>
   (Math.atan2(destination[1] - origin[1], destination[0] - origin[0]) -
     Math.PI / 2) %
   (Math.PI * 2);
@@ -41,7 +44,7 @@ export const getNewAngle = (
   return oldAngle - angleDiff(oldAngle, bearing);
 };
 
-export const angleDiff = (angleA: number, angleB: number) => {
+export const angleDiff = (angleA: number, angleB: number): number => {
   const twoPi = Math.PI * 2;
   const diff =
     ((angleA - (angleB > 0 ? angleB : angleB + twoPi) + Math.PI) % twoPi) -
