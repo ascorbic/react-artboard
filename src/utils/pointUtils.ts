@@ -15,5 +15,5 @@ export const getMousePoint = (event: React.MouseEvent): Point => [
 ];
 
 const BUTTON = 0b01;
-export const mouseButtonIsDown = (buttons: number) =>
+export const mouseButtonIsDown = (buttons: number): boolean =>
   (BUTTON & buttons) === BUTTON;

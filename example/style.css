@@ -3,11 +3,66 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+a:link,
+a:visited {
+  color: inherit;
+}
+
 label {
   display: flex;
   align-items: center;
   flex-direction: row;
   font-size: 12px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  padding: 10px;
+  width: calc(100vw - 22px);
+  height: 100vh;
+  display: flex;
+  position: fixed;
+}
+
+main {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 20px 50px 1fr;
+  grid-template-areas:
+    "name name"
+    "brushes controls"
+    "artboard artboard";
+}
+
+#artboard {
+  grid-area: artboard;
+  display: flex;
+}
+#artboard canvas {
+  flex: 1;
+}
+#brushes {
+  grid-area: brushes;
+}
+#controls {
+  grid-area: controls;
+  justify-content: flex-end;
+}
+#name {
+  grid-area: name;
+  place-items: center;
+  display: flex;
+  align-items: center;
+}
+#topTools {
+  display: flex;
+  flex-direction: row;
+  grid-area: topTools;
 }
 
 input {
@@ -30,21 +85,40 @@ label span {
 .toolbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .toolbarSection {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
-.toolbar button {
-  font-size: 2em;
+.toolbarSection button {
+  padding: auto;
+  display: inline-flex;
   cursor: pointer;
   border: none;
-  display: flex;
   place-items: center;
   width: 32px;
   height: 32px;
   margin: 3px;
+}
+
+@media screen and (max-width: 500px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px 50px 1fr;
+    grid-template-areas:
+      "name controls"
+      "brushes brushes"
+      "artboard artboard";
+  }
+  h1 {
+    font-size: 14px;
+  }
+  h1 svg {
+    display: none;
+  }
+  #brushes {
+    justify-content: center;
+  }
 }
