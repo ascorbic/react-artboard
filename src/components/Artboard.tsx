@@ -52,7 +52,7 @@ export const Artboard = forwardRef(function Artboard(
       setDrawing(true);
       tool.startStroke?.(point, context);
     },
-    [setDrawing, tool, context]
+    [tool, context]
   );
 
   const continueStroke = useCallback(
