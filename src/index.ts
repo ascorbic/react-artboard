@@ -5,4 +5,5 @@ export * from "./tools/shading/useShadingBrush";
 export * from "./tools/watercolor/useWatercolor";
 export * from "./components/Artboard";
 export * from "./utils/pointUtils";
+export * from "./history";
 export { circleCursor } from "./utils/cursors";
