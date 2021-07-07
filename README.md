@@ -1,7 +1,7 @@
 # react-artboard
 
-A freeform sketching component for React. [Try the
-demo](https://react-artboard.netlify.app/)
+A freeform sketching component for React.
+[Try the demo](https://react-artboard.netlify.app/)
 
 ![artboard](https://raw.githubusercontent.com/ascorbic/react-artboard/main/artboard.png)
 
@@ -157,7 +157,13 @@ export function App() {
     Returns the image as a data URI, which can be displayed in an `<img>` tag
     for example.
 
-  - **`clear`**: `() => void` Clears the image
+  - **`clear`**: `() => void`
+
+    Clears the image
+
+  - **`context`**: `CanvasRenderingContext2D | null | undefined`
+
+    Canvas rendering context
 
 ### Paintbrush
 
@@ -205,7 +211,6 @@ according to the different parameters.
 
 - **`color`** A CSS string color.
 - **`strokeWidth`** The width of the brush
-
 
 ### Marker pen
 
@@ -263,6 +268,7 @@ These posts gave inspiration, particularly for the shading tool.
 - [Harmony brush adoption in Krita: Sketch](http://lukast.mediablog.sk/log/?p=347)
 
 Inspiration for the watercolor tool:
+
 - [Generative watercolor in Processing](https://sighack.com/post/generative-watercolor-in-processing)
 - [How to hack a painting](https://tylerxhobbs.com/essays/2020/how-to-hack-a-painting)
 
