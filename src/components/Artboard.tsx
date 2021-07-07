@@ -25,6 +25,7 @@ export interface ArtboardRef {
   download: (filename?: string, type?: string) => void;
   getImageAsDataUri: (type?: string) => string | undefined;
   clear: () => void;
+  context?: CanvasRenderingContext2D | null;
 }
 
 export interface ToolHandlers {
@@ -190,8 +191,9 @@ export const Artboard = forwardRef(function Artboard(
       },
       clear,
       getImageAsDataUri: (type?: string) => canvas?.toDataURL(type),
+      context: context,
     }),
-    [canvas, clear]
+    [canvas, context, clear]
   );
 
   return (
