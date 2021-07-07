@@ -19,6 +19,9 @@ export interface ArtboardProps
   extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
   tool: ToolHandlers;
   history?: History;
+  onStartStroke?: (point: Point) => void;
+  onContinueStroke?: (point: Point) => void;
+  onEndStroke?: () => void;
 }
 
 export interface ArtboardRef {
@@ -36,7 +39,15 @@ export interface ToolHandlers {
 }
 
 export const Artboard = forwardRef(function Artboard(
-  { tool, style, history, ...props }: ArtboardProps,
+  {
+    tool,
+    style,
+    history,
+    onStartStroke,
+    onContinueStroke,
+    onEndStroke,
+    ...props
+  }: ArtboardProps,
   ref: ForwardedRef<ArtboardRef>
 ) {
   const [context, setContext] = useState<CanvasRenderingContext2D | null>();
@@ -51,8 +62,9 @@ export const Artboard = forwardRef(function Artboard(
       context.save();
       setDrawing(true);
       tool.startStroke?.(point, context);
+      onStartStroke?.(point);
     },
-    [tool, context]
+    [tool, context, onStartStroke]
   );
 
   const continueStroke = useCallback(
@@ -61,20 +73,22 @@ export const Artboard = forwardRef(function Artboard(
         return;
       }
       tool.continueStroke?.(newPoint, context);
+      onContinueStroke?.(newPoint);
     },
-    [tool, context]
+    [tool, context, onContinueStroke]
   );
 
   const endStroke = useCallback(() => {
     setDrawing(false);
     if (context) {
       tool.endStroke?.(context);
+      onEndStroke?.();
       context.restore();
       if (canvas && history) {
         history.pushState(canvas);
       }
     }
-  }, [tool, context, canvas, history]);
+  }, [tool, context, canvas, history, onEndStroke]);
 
   const mouseMove = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
