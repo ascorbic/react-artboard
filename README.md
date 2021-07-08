@@ -165,6 +165,18 @@ export function App() {
 
     Canvas rendering context
 
+- **`onStartStroke`**: `(point: Point) => void`
+
+  Callback at the start of a stroke
+
+- **`onContinueStroke`**: `(point: Point) => void`
+
+  Callback at the continuing of a stroke
+
+- **`onEndStroke`**: `() => void`
+
+  Callback at the end of a stroke
+
 ### Paintbrush
 
 `useBrush(options)`
