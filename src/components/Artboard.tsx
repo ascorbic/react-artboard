@@ -191,7 +191,7 @@ export const Artboard = forwardRef(function Artboard(
       },
       clear,
       getImageAsDataUri: (type?: string) => canvas?.toDataURL(type),
-      context: context,
+      context,
     }),
     [canvas, context, clear]
   );
