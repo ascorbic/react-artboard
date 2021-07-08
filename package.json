@@ -1,6 +1,6 @@
 {
   "name": "react-artboard",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.module.js",
   "exports": "./dist/index.modern.js",
