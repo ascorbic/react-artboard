@@ -6,6 +6,7 @@ import {
   Artboard,
   ArtboardRef,
   useShadingBrush,
+  useEraser,
   useWatercolor,
   ToolHandlers,
 } from "../src/";
@@ -14,6 +15,7 @@ import {
   FaPencilAlt,
   FaPaintBrush,
   FaMarker,
+  FaEraser,
   FaSprayCan,
   FaDownload,
   FaTrash,
@@ -41,6 +43,7 @@ export function App(): JSX.Element {
   const marker = useMarker({ color, strokeWidth });
   const watercolor = useWatercolor({ color, strokeWidth });
   const airbrush = useAirbrush({ color, strokeWidth });
+  const eraser = useEraser({ strokeWidth });
   const shading = useShadingBrush({
     color,
     spreadFactor: (1 / 45) * strokeWidth,
@@ -52,6 +55,7 @@ export function App(): JSX.Element {
     [brush, FaPaintBrush],
     [marker, FaMarker],
     [airbrush, FaSprayCan],
+    [eraser, FaEraser],
   ];
   const [currentTool, setCurrentTool] = useState(0);
 

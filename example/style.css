@@ -97,11 +97,14 @@ label span {
   display: inline-flex;
   cursor: pointer;
   border: none;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
   margin: 3px;
 }
+
+
 
 @media screen and (max-width: 500px) {
   main {
